@@ -63,7 +63,7 @@ class AllTodoView extends GetView<AllTodoController> {
                             Routes.DETAIL_TODO,
                             arguments: {
                               "id": "${todoData["task_id"]}",
-                              "title": "${todoData["title"]}",
+                              "nama_peminjam": "${todoData["nama_peminjam"]}",
                               "description": "${todoData["description"]}",
                               "image": "${todoData["image"]}",
                             },

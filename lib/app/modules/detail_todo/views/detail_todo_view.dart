@@ -54,11 +54,11 @@ class DetailTodoView extends GetView<DetailTodoController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Nama barang',
-            hint: 'Nama Barang yang dipinjam',
-          ),
+          // CustomInput(
+          //   controller: controller.titleC,
+          //   label: 'Nama barang',
+          //   hint: 'Nama Barang yang dipinjam',
+          // ),
           CustomInput(
             controller: controller.descriptionC,
             label: 'Identitas',
@@ -101,7 +101,7 @@ class DetailTodoView extends GetView<DetailTodoController> {
               controller.deleteTodo();
             },
             child: Text(
-              'Delete todo',
+              'Delete peminjaman',
               style: TextStyle(
                 fontSize: 16,
                 fontFamily: 'poppins',
