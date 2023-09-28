@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_lims/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_lims/app/modules/home/controllers/home_controller.dart';
-import 'package:firebase_lims/app/routes/app_pages.dart';
-import 'package:firebase_lims/app/utils/app_color.dart';
+import 'package:flutter_crud_firebase/app/modules/home/controllers/home_controller.dart';
+import 'package:flutter_crud_firebase/app/routes/app_pages.dart';
+import 'package:flutter_crud_firebase/app/utils/app_color.dart';
 import 'package:get/get.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -135,7 +134,7 @@ class HomeView extends GetView<HomeController> {
                                                 margin:
                                                     EdgeInsets.only(bottom: 6),
                                                 child: Text(
-                                                  "Jumlah Todo",
+                                                  "Jumlah transaksi peminjaman",
                                                   style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.white,
@@ -172,7 +171,7 @@ class HomeView extends GetView<HomeController> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "List Todo Terbaru",
+                            "Data Pinjam Terbaru",
                             style: TextStyle(
                               fontFamily: "poppins",
                               fontWeight: FontWeight.w600,
@@ -216,6 +215,16 @@ class HomeView extends GetView<HomeController> {
                                           "title": "${todoData["title"]}",
                                           "description":
                                               "${todoData["description"]}",
+                                          "nama_peminjam":
+                                              "${todoData["nama_peminjam"]}",
+                                          "tanggal_pinjam":
+                                              "${todoData["tanggal_pinjam"]}",
+                                          "tanggal_kembali":
+                                              "${todoData["tanggal_kembali"]}",
+                                          "status": "${todoData["status"]}",
+                                          "keterangan":
+                                              "${todoData["keterangan"]}",
+                                          "image": "${todoData["image"]}",
                                         },
                                       ),
                                     },
@@ -236,8 +245,17 @@ class HomeView extends GetView<HomeController> {
                                           bottom: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.start,
                                         children: [
+                                          Image.network(
+                                            todoData["image"],
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                          SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                          ),
                                           Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,

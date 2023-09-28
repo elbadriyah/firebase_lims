@@ -1,10 +1,13 @@
-import 'package:firebase_lims/app/modules/detail_todo/controllers/detail_todo_controller.dart';
-import 'package:firebase_lims/app/routes/app_pages.dart';
-import 'package:firebase_lims/app/utils/app_color.dart';
-import 'package:firebase_lims/app/widgets/costume_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+import '../../../routes/app_pages.dart';
+import '../../../utils/app_color.dart';
+import '../../../widgets/custom_input.dart';
+import '../controllers/detail_todo_controller.dart';
 
 class DetailTodoView extends GetView<DetailTodoController> {
   const DetailTodoView({Key? key}) : super(key: key);
@@ -13,7 +16,7 @@ class DetailTodoView extends GetView<DetailTodoController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail Todo',
+          'Detail peminjaman',
           style: TextStyle(
             color: AppColor.secondary,
             fontSize: 14,
@@ -53,17 +56,47 @@ class DetailTodoView extends GetView<DetailTodoController> {
         children: [
           CustomInput(
             controller: controller.titleC,
-            label: 'Nama Todo',
-            hint: 'Menyelesaikan tugas',
-            disabled: true,
+            label: 'Nama barang',
+            hint: 'Nama Barang yang dipinjam',
           ),
           CustomInput(
             controller: controller.descriptionC,
-            label: 'Deskripsi Todo',
-            hint: 'Diselesaikan sebelum tanggal 25',
-            disabled: true,
+            label: 'Identitas',
+            hint: 'No KTP/NIP/NISN',
           ),
-           ElevatedButton(
+          CustomInput(
+            controller: controller.namaC,
+            label: 'Nama peminjam',
+            hint: 'Nama peminjam alat',
+          ),
+          CustomInput(
+            controller: controller.tanggalC,
+            disabled: true,
+            label: 'Tanggal pinjam',
+            hint: DateFormat('d-M-yyyy').format(DateTime.now()),
+          ),
+          CustomInput(
+            controller: controller.tanggalKemC,
+            disabled: true,
+            label: 'Tanggal kembali',
+            hint: DateFormat('d-M-yyyy')
+                .format(DateTime.now().add(Duration(days: 3))),
+          ),
+          CustomInput(
+            controller: controller.statusC,
+            label: 'Keterangan',
+            hint: 'Keterangan kondisi alat',
+          ),
+          CustomInput(
+            controller: controller.keteranganC,
+            label: 'Keterangan',
+            hint: 'Keterangan kondisi alat',
+          ),
+          Image.network(controller.image),
+          const SizedBox(
+            height: 16,
+          ),
+          ElevatedButton(
             onPressed: () {
               controller.deleteTodo();
             },
@@ -83,7 +116,6 @@ class DetailTodoView extends GetView<DetailTodoController> {
               ),
             ),
           ),
-
         ],
       ),
     );

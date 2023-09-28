@@ -1,21 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_crud_firebase/app/modules/all_barang/controllers/all_barang_controller.dart';
 import 'package:flutter_crud_firebase/app/routes/app_pages.dart';
 import 'package:flutter_crud_firebase/app/utils/app_color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/all_todo_controller.dart';
+import '../controllers/all_barang_controller.dart';
 
-class AllTodoView extends GetView<AllTodoController> {
-  const AllTodoView({Key? key}) : super(key: key);
+class AllTBarangView extends GetView<AllBarangController> {
+  const AllTBarangView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Semua Data Todo',
+          'Semua Data Barang',
           style: TextStyle(
             color: AppColor.secondary,
             fontSize: 14,
@@ -37,7 +38,7 @@ class AllTodoView extends GetView<AllTodoController> {
           ),
         ),
       ),
-      body: GetBuilder<AllTodoController>(
+      body: GetBuilder<AllBarangController>(
         builder: (con) {
           return FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
             future: controller.getAllResult(),
@@ -60,12 +61,14 @@ class AllTodoView extends GetView<AllTodoController> {
                       return InkWell(
                         onTap: () => {
                           Get.toNamed(
-                            Routes.DETAIL_TODO,
+                            Routes.DETAIL_BARANG,
                             arguments: {
                               "id": "${todoData["task_id"]}",
-                              "title": "${todoData["title"]}",
-                              "description": "${todoData["description"]}",
-                              "image": "${todoData["image"]}",
+                              "nama_barang": "${todoData["nama_barang"]}",
+                              "spesifikasi": "${todoData["spesifikasi"]}",
+                              "merk": "${todoData["merk"]}",
+                              "tahun_beli": "${todoData["tahun_beli"]}",
+                              "Sumber_dana": "${todoData["sumber_dana"]}",
                             },
                           )
                         },

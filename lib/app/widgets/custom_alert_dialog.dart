@@ -1,7 +1,8 @@
-import 'package:firebase_lims/app/utils/app_color.dart';
-import 'package:firebase_lims/app/widgets/costume_input.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../utils/app_color.dart';
+import 'custom_input.dart';
 
 class CustomAlertDialog {
   static confirmAdmin({

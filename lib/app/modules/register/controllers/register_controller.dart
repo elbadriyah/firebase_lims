@@ -3,79 +3,74 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RegisterController extends GetxController {
-  //TODO: Implement RegisterController
-  RxBool isloading = false.obs;
-  RxBool obsecureText = true.obs;
-  TextEditingController namalengkapC = new TextEditingController();
-  TextEditingController emailC = new TextEditingController();
-  TextEditingController passwordC = new TextEditingController();
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  FirebaseAuth auth = FirebaseAuth.instance;
+import '../../../widgets/custom_toast.dart';
 
-  Future<void> register() async {
-    if (emailC.text.isNotEmpty && passwordC.text.isNotEmpty) {
-      isloading.value = true;
+class RegisterController extends GetxController {
+  RxBool isLoading = false.obs;
+  RxBool obsecureText = true.obs;
+  TextEditingController nameC = TextEditingController();
+  TextEditingController emailC = TextEditingController();
+  TextEditingController passC = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+  }
+
+  Future<void> registration() async {
+    if (passC.text.isNotEmpty) {
+      isLoading.value = true;
       try {
+        // if the password is match, then continue the create user process
         UserCredential respondentCredential =
             await auth.createUserWithEmailAndPassword(
-                email: emailC.text.trim(), password: passwordC.text);
+          email: emailC.text.trim(),
+          password: passC.text,
+        );
+
         if (respondentCredential.user != null) {
           String uid = respondentCredential.user!.uid;
 
           DocumentReference users = firestore.collection("users").doc(uid);
           await users.set({
             "user_id": uid,
-            "name": namalengkapC.text,
-            "email": emailC.text.trim(), //fungsi trim untuk menghilangkan spasi
+            "name": nameC.text,
+            "email": emailC.text.trim(),
             "created_at": DateTime.now().toIso8601String(),
           });
+
           await respondentCredential.user!.sendEmailVerification();
+          //need to logout because the current user is changed after adding new user
           auth.signOut();
+          // need to relogin to admin account
           await auth.signInWithEmailAndPassword(
-              email: emailC.text.trim(), password: passwordC.text);
+              email: emailC.text.trim(), password: passC.text);
 
-          Get.back();
-          Get.back();
-          print("berhasil mendaftar");
+          Get.back(); //close dialog
+          Get.back(); //close form screen
+          CustomToast.successToast('Success', 'berhasil mendaftar');
 
-          isloading.value = false;
-          namalengkapC.clear();
-          emailC.clear();
-          passwordC.clear();
+          isLoading.value = false;
         }
       } on FirebaseAuthException catch (e) {
-        isloading.value = false;
+        isLoading.value = false;
         if (e.code == 'weak-password') {
-          print('Error, Kata sandi anda terlalu pendek');
+          CustomToast.errorToast('Error', 'kata sandi terlalu pendek');
         } else if (e.code == 'email-already-in-use') {
-          print('Error, Email sudah ada');
+          CustomToast.errorToast('Error', 'Email sudah ada');
         } else if (e.code == 'wrong-password') {
-          print('Error, Salah kata sandi');
+          CustomToast.errorToast('Error', 'Salah kata sandi');
         } else {
-          print('eror : ${e.code}');
+          CustomToast.errorToast('Error', 'error : ${e.code}');
         }
       } catch (e) {
-        isloading.value = false;
-        print('eror : ${e.toString()}');
+        isLoading.value = false;
+        CustomToast.errorToast('Error', 'error : ${e.toString()}');
       }
     } else {
-      print('Email dan kata sandi tidak boleh kosong');
+      CustomToast.errorToast('Error', 'Kata sandi harus diisikan');
     }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
   }
 }

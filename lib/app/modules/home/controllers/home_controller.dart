@@ -1,14 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_lims/app/routes/app_pages.dart';
-import 'package:firebase_lims/app/widgets/custom_alert_dialog.dart';
-import 'package:firebase_lims/app/widgets/custom_toast.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+import '../../../widgets/custom_alert_dialog.dart';
+import '../../../widgets/custom_toast.dart';
+
 class HomeController extends GetxController {
+  //TODO: Implement HomeController
+
+  final count = 0.obs;
   RxBool isLoading = false.obs;
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+  }
+
+  void increment() => count.value++;
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> streamUser() async* {
     String uid = auth.currentUser!.uid;

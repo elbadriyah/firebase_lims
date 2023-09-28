@@ -1,12 +1,13 @@
-import 'package:firebase_lims/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+
+import '../utils/app_color.dart';
 
 class CustomToast {
   static errorToast(String? title, String? message) {
     Get.rawSnackbar(
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 2),
       dismissDirection: DismissDirection.horizontal,
       messageText: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,15 +51,15 @@ class CustomToast {
 
   static successToast(String? title, String? message) {
     Get.rawSnackbar(
-      duration: Duration(seconds: 4),
+      duration: Duration(seconds: 2),
       dismissDirection: DismissDirection.horizontal,
       messageText: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          //SvgPicture.asset(
-          //  "assets/icons/success-circle.svg",
-           // color: Colors.white,
-         // ),
+          SvgPicture.asset(
+            "assets/icons/success-circle.svg",
+            color: Colors.white,
+          ),
           SizedBox(width: 16),
           Expanded(
             child: Column(
