@@ -261,9 +261,10 @@ class HomeView extends GetView<HomeController> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                (todoData["title"] == null)
+                                                (todoData["nama_peminjam"] ==
+                                                        null)
                                                     ? "-"
-                                                    : "${todoData["title"]}",
+                                                    : "${todoData["nama_peminjam"]}",
                                                 style: TextStyle(fontSize: 12),
                                               ),
                                               Text(

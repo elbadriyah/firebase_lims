@@ -52,7 +52,7 @@ class DetailBarangView extends GetView<DetailBarangController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-           CustomInput(
+          CustomInput(
             controller: controller.namabrgC,
             label: 'Nama Barang',
             hint: 'Tambahkan nama Barang',
@@ -87,6 +87,30 @@ class DetailBarangView extends GetView<DetailBarangController> {
             label: 'Jumlah barang',
             hint: 'Jumlah barang',
             disabled: true,
+          ),
+          Image.network(controller.image),
+          const SizedBox(
+            height: 16,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              controller.deleteBarang();
+            },
+            child: Text(
+              'Delete Barang',
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'poppins',
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              primary: AppColor.warning,
+              padding: EdgeInsets.symmetric(vertical: 18),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
           ),
         ],
       ),

@@ -15,7 +15,7 @@ class AllTodoView extends GetView<AllTodoController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Semua Data Todo',
+          'Semua Data Pinjam',
           style: TextStyle(
             color: AppColor.secondary,
             fontSize: 14,

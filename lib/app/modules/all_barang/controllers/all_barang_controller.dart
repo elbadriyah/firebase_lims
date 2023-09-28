@@ -9,8 +9,6 @@ class AllBarangController extends GetxController {
   Future<QuerySnapshot<Map<String, dynamic>>> getAllResult() async {
     String uid = auth.currentUser!.uid;
     QuerySnapshot<Map<String, dynamic>> query = await firestore
-        .collection("users")
-        .doc(uid)
         .collection("items")
         .orderBy(
           "created_at",

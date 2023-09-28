@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_crud_firebase/app/widgets/custom_alert_dialog.dart';
+import 'package:flutter_crud_firebase/app/widgets/custom_toast.dart';
 import 'package:get/get.dart';
 
 class DetailBarangController extends GetxController {
+  final count = 0.obs;
   final Map<String, dynamic> argsData = Get.arguments;
 
   RxBool isLoading = false.obs;
@@ -15,9 +19,12 @@ class DetailBarangController extends GetxController {
   TextEditingController thnbeliC = TextEditingController();
   TextEditingController sumberdanaC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
+  String image = "";
+  String imageName = "";
 
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
   @override
   onClose() {
@@ -38,5 +45,29 @@ class DetailBarangController extends GetxController {
     thnbeliC.text = argsData["tahun_beli"];
     sumberdanaC.text = argsData["sumber_dana"];
     jumlahC.text = argsData["jumlah"];
+    image = argsData["image"];
+  }
+
+  Future<void> deleteBarang() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "Hapus data peminjaman",
+      message: "Apakah anda ingin menghapus data peminjaman ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back(); // close modal
+        Get.back(); // back page
+        try {
+          await firebaseStorage.refFromURL(image).delete();
+
+          String uid = auth.currentUser!.uid;
+          await firestore.collection('items').doc(argsData['id']).delete();
+          CustomToast.successToast(
+              'Success', 'Data peminjaman berhasil dihapus');
+        } catch (e) {
+          CustomToast.errorToast(
+              "Error", "Error dikarenakan : ${e.toString()}");
+        }
+      },
+    );
   }
 }

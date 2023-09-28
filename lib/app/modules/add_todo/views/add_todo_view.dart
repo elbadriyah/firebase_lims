@@ -1,3 +1,4 @@
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -9,7 +10,6 @@ import '../../../widgets/custom_input.dart';
 import '../controllers/add_todo_controller.dart';
 
 class AddTodoView extends GetView<AddTodoController> {
-  const AddTodoView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +43,32 @@ class AddTodoView extends GetView<AddTodoController> {
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.all(20),
           children: [
-            CustomInput(
-              controller: controller.titleC,
-              label: 'Nama barang',
-              hint: 'Nama Barang yang dipinjam',
+            DropDownTextField(
+              controller: controller.cnt,
+              clearOption: true,
+              enableSearch: true,
+              searchFocusNode: controller.searchFocusNode,
+              searchDecoration: const InputDecoration(
+                  hintText: "pilih barang yang akan dipinjam"),
+              validator: (value) {
+                if (value == null) {
+                  return "data barang kosong";
+                } else {
+                  return null;
+                }
+              },
+              dropDownItemCount: 6,
+              dropDownList: (controller.items != null)
+                  ? controller.items!.map((val) {
+                      var item = val.data();
+                      return DropDownValueModel(
+                        name: item["nama_barang"],
+                        value: {
+                          "nama_barang": item["nama_barang"],
+                        },
+                      );
+                    }).toList()
+                  : [],
             ),
             CustomInput(
               controller: controller.descriptionC,
@@ -113,39 +135,9 @@ class AddTodoView extends GetView<AddTodoController> {
                       Text("Terlambat"),
                     ],
                   ),
-                  // RadioListTile(
-                  //   value: 'Available',
-                  //   groupValue: controller
-                  //       .radio, // Pastikan controller.status sesuai dengan nilai radio button yang dipilih
-                  //   onChanged: (value) {
-                  //     controller.setRadio(value);
-                  //   },
-                  //   title: Text('Tersedia'),
-                  // ),
-                  // RadioListTile(
-                  //   value: 'Borrowed',
-                  //   groupValue: controller.radio,
-                  //   onChanged: (value) {
-                  //     controller.setRadio(value);
-                  //   },
-                  //   title: Text('Dipinjam'),
-                  // ),
-                  // RadioListTile(
-                  //   value: 'Returned',
-                  //   groupValue: controller.radio,
-                  //   onChanged: (value) {
-                  //     controller.setRadio(value);
-                  //   },
-                  //   title: Text('Dikembalikan'),
-                  // ),
                 ],
               ),
             ),
-            // CustomInput(
-            //   controller: controller.descriptionC,
-            //   label: 'Status',
-            //   hint: 'Status alat',
-            // ),
             CustomInput(
               controller: controller.keteranganC,
               label: 'Keterangan',
@@ -216,7 +208,7 @@ class AddTodoView extends GetView<AddTodoController> {
                   },
                   child: Text(
                     (controller.isLoading.isFalse)
-                        ? 'Tambah todo'
+                        ? 'Tambah data pinjam'
                         : 'Loading...',
                     style: TextStyle(
                       fontSize: 16,

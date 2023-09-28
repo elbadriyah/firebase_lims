@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -20,7 +21,7 @@ class AddTodoController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxString radio = "tersedia".obs;
 
-  TextEditingController titleC = TextEditingController();
+  // TextEditingController titleC = TextEditingController();
   TextEditingController descriptionC = TextEditingController();
   TextEditingController namaC = TextEditingController();
   TextEditingController tanggalC = TextEditingController();
@@ -33,6 +34,11 @@ class AddTodoController extends GetxController {
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
   File? file;
+  List<QueryDocumentSnapshot<Map<String, dynamic>>>? items;
+  Map<String, dynamic> selectedItem = {};
+
+  SingleValueDropDownController cnt = SingleValueDropDownController();
+  FocusNode searchFocusNode = FocusNode();
 
   @override
   void onInit() {
@@ -41,6 +47,8 @@ class AddTodoController extends GetxController {
     tanggalC.text = DateFormat('d-M-yyyy').format(DateTime.now());
     tanggalKemC.text =
         DateFormat('d-M-yyyy').format(DateTime.now().add(Duration(days: 3)));
+
+    getAllItems();
   }
 
   @override
@@ -52,7 +60,7 @@ class AddTodoController extends GetxController {
   void onClose() {
     super.onClose();
 
-    titleC.dispose();
+    // titleC.dispose();
     descriptionC.dispose();
   }
 
@@ -80,8 +88,22 @@ class AddTodoController extends GetxController {
     });
   }
 
+  Future<void> getAllItems() async {
+    String uid = auth.currentUser!.uid;
+    QuerySnapshot<Map<String, dynamic>> query = await firestore
+        .collection("items")
+        .orderBy(
+          "created_at",
+          descending: true,
+        )
+        .get();
+
+    items = query.docs;
+    update();
+  }
+
   Future<void> addTodo() async {
-    if (titleC.text.isNotEmpty && descriptionC.text.isNotEmpty) {
+    if (descriptionC.text.isNotEmpty) {
       isLoading.value = true;
 
       if (isLoadingCreateTodo.isFalse) {
@@ -101,7 +123,7 @@ class AddTodoController extends GetxController {
       try {
         String uid = auth.currentUser!.uid;
         CollectionReference<Map<String, dynamic>> childrenCollection =
-            await firestore.collection("users").doc(uid).collection("todos");
+            await firestore.collection("todos");
 
         var uuidTodo = Uuid().v1();
 
@@ -115,7 +137,7 @@ class AddTodoController extends GetxController {
 
         await childrenCollection.doc(uuidTodo).set({
           "task_id": uuidTodo,
-          "title": titleC.text,
+          "item": cnt.dropDownValue!.value,
           "description": descriptionC.text,
           "nama_peminjam": namaC.text,
           "tanggal_pinjam": tanggalC.text,
@@ -128,7 +150,7 @@ class AddTodoController extends GetxController {
 
         Get.back(); //close dialog
         Get.back(); //close form screen
-        CustomToast.successToast('Success', 'Berhasil menambahkan todo');
+        CustomToast.successToast('Success', 'Berhasil menambahkan data pinjam');
 
         isLoadingCreateTodo.value = false;
       } on FirebaseAuthException catch (e) {

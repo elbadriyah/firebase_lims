@@ -56,19 +56,21 @@ class AllTBarangView extends GetView<AllBarangController> {
                     padding: EdgeInsets.all(20),
                     separatorBuilder: (context, index) => SizedBox(height: 16),
                     itemBuilder: (context, index) {
-                      var todoData = data[index].data();
+                      var todoBarang = data[index].data();
                       String desc;
                       return InkWell(
                         onTap: () => {
                           Get.toNamed(
                             Routes.DETAIL_BARANG,
                             arguments: {
-                              "id": "${todoData["task_id"]}",
-                              "nama_barang": "${todoData["nama_barang"]}",
-                              "spesifikasi": "${todoData["spesifikasi"]}",
-                              "merk": "${todoData["merk"]}",
-                              "tahun_beli": "${todoData["tahun_beli"]}",
-                              "Sumber_dana": "${todoData["sumber_dana"]}",
+                              "id": "${todoBarang["task_id"]}",
+                              "nama_barang": "${todoBarang["nama_barang"]}",
+                              "spesifikasi": "${todoBarang["spesifikasi"]}",
+                              "merk": "${todoBarang["merk"]}",
+                              "tahun_beli": "${todoBarang["tahun_beli"]}",
+                              "sumber_dana": "${todoBarang["sumber_dana"]}",
+                              "jumlah": "${todoBarang["jumlah"]}",
+                              "image": "${todoBarang["image"]}"
                             },
                           )
                         },
@@ -91,13 +93,13 @@ class AllTBarangView extends GetView<AllBarangController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    (todoData["title"] == null)
+                                    (todoBarang["nama_barang"] == null)
                                         ? "-"
-                                        : "${todoData["title"]}",
+                                        : "${todoBarang["nama_barang"]}",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                   Text(
-                                    "${todoData["created_at"]}",
+                                    "${todoBarang["created_at"]}",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ],
@@ -114,6 +116,14 @@ class AllTBarangView extends GetView<AllBarangController> {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.ADD_BARANG);
+        },
+        child: Icon(
+          Icons.add,
+        ),
       ),
     );
   }

@@ -69,6 +69,59 @@ class EditTBarangView extends GetView<EditBarangController> {
             label: 'Jumlah barang',
             hint: 'Jumlah barang',
           ),
+          (controller.file != null)
+              ? Image.file(controller.file!)
+              : Image.network(controller.image),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.toCamera(),
+                  child: Text(
+                    'Kamera',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'poppins',
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.primary,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.pickFile(),
+                  child: Text(
+                    'Galeri',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'poppins',
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.primary,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           SizedBox(height: 32),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -80,7 +133,9 @@ class EditTBarangView extends GetView<EditBarangController> {
                   }
                 },
                 child: Text(
-                  (controller.isLoading.isFalse) ? 'Edit todo' : 'Loading...',
+                  (controller.isLoading.isFalse)
+                      ? 'Edit data peminjaman'
+                      : 'Loading...',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'poppins',

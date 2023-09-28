@@ -108,8 +108,6 @@ class EditTodoController extends GetxController {
             await firestore.collection("users").doc(uid).collection("todos");
 
         DocumentReference todo = await firestore
-            .collection("users")
-            .doc(uid)
             .collection("todos")
             .doc(argsData["id"]);
 

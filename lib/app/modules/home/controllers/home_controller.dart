@@ -38,18 +38,12 @@ class HomeController extends GetxController {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> streamTodo() async* {
     String uid = auth.currentUser!.uid;
-    yield* firestore
-        .collection("users")
-        .doc(uid)
-        .collection("todos")
-        .snapshots();
+    yield* firestore.collection("todos").snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> streamLastTodo() async* {
     String uid = auth.currentUser!.uid;
     yield* firestore
-        .collection("users")
-        .doc(uid)
         .collection("todos")
         .orderBy("created_at", descending: true)
         .limitToLast(5)

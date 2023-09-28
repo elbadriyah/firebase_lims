@@ -8,6 +8,8 @@ import '../modules/all_barang/bindings/all_barang_binding.dart';
 import '../modules/all_barang/views/all_barang_view.dart';
 import '../modules/all_todo/bindings/all_todo_binding.dart';
 import '../modules/all_todo/views/all_todo_view.dart';
+import '../modules/dashboard/bindings/dashboard_binding.dart';
+import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/detail_barang/bindings/detail_barang_binding.dart';
 import '../modules/detail_barang/views/detail_barang_view.dart';
 import '../modules/detail_todo/bindings/detail_todo_binding.dart';
@@ -28,7 +30,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.ADD_BARANG;
+  static const INITIAL = Routes.DASHBOARD;
 
   static final routes = [
     GetPage(
@@ -48,7 +50,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADD_TODO,
-      page: () => const AddTodoView(),
+      page: () => AddTodoView(),
       binding: AddTodoBinding(),
     ),
     GetPage(
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.EDIT_BARANG,
       page: () => const EditTBarangView(),
       binding: EditBarangBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
     ),
   ];
 }

@@ -69,6 +69,59 @@ class AddTbarangView extends GetView<AddBarangController> {
             label: 'Jumlah barang',
             hint: 'Jumlah barang',
           ),
+          (controller.file != null)
+              ? Image.file(controller.file!)
+              : const SizedBox(),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.toCamera(),
+                  child: Text(
+                    'Kamera',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'poppins',
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.primary,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                width: 16,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => controller.pickFile(),
+                  child: Text(
+                    'Galeri',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'poppins',
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.primary,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
           SizedBox(height: 32),
           Container(
             width: MediaQuery.of(context).size.width,
