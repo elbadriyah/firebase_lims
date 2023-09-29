@@ -7,6 +7,8 @@ import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
+
+  //  final AuthController authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,26 +20,48 @@ class DashboardView extends GetView<DashboardController> {
         Expanded(
             child: InkWell(
           onTap: () => Get.toNamed(Routes.ALL_BARANG),
-          child: Card(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Data Barang'),
-                ]),
+          child: SizedBox(
+            height: 200,
+            child: Card(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/pc.png',
+                      width: 130,
+                    ),
+                    Text('Data Barang'),
+                  ]),
+            ),
           ),
         )),
         Expanded(
             child: InkWell(
           onTap: () => Get.toNamed(Routes.HOME),
-          child: Card(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text('Data pinjam'),
-                ]),
+          child: SizedBox(
+            height: 200,
+            child: Card(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/pinjam.png',
+                      width: 130,
+                    ),
+                    Text('Data pinjam'),
+                  ]),
+            ),
           ),
         )),
       ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          controller.logout();
+        },
+        child: Icon(
+          Icons.logout,
+        ),
+      ),
     );
   }
 }

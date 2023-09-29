@@ -61,7 +61,6 @@ class EditTodoController extends GetxController {
   @override
   void onClose() {
     super.onClose();
-
     titleC.dispose();
     descriptionC.dispose();
   }
@@ -101,16 +100,16 @@ class EditTodoController extends GetxController {
   editTodoData() async {
     isLoadingCreateTodo.value = true;
     String adminEmail = auth.currentUser!.email!;
-    if (file != null) {
-      try {
-        String uid = auth.currentUser!.uid;
-        CollectionReference<Map<String, dynamic>> childrenCollection =
-            await firestore.collection("users").doc(uid).collection("todos");
+    // if (file != null) {
+    try {
+      String uid = auth.currentUser!.uid;
+      CollectionReference<Map<String, dynamic>> childrenCollection =
+          await firestore.collection("todos");
 
-        DocumentReference todo = await firestore
-            .collection("todos")
-            .doc(argsData["id"]);
+      DocumentReference todo =
+          await firestore.collection("todos").doc(argsData["id"]);
 
+      if (file != null) {
         String fileName = file!.path.split('/').last;
         String ext = fileName.split(".").last;
         String upDir = "image/${argsData["id"]}.$ext";
@@ -129,21 +128,32 @@ class EditTodoController extends GetxController {
           "keterangan": keteranganC.text,
           "image": downloadUrl,
         });
-
-        Get.back(); //close dialog
-        Get.back(); //close form screen
-        CustomToast.successToast('Success', 'Berhasil memperbarui todo');
-
-        isLoadingCreateTodo.value = false;
-      } on FirebaseAuthException catch (e) {
-        isLoadingCreateTodo.value = false;
-        CustomToast.errorToast('Error', 'error : ${e.code}');
-      } catch (e) {
-        isLoadingCreateTodo.value = false;
-        CustomToast.errorToast('Error', 'error : ${e.toString()}');
+      } else {
+        await childrenCollection.doc(argsData["id"]).update({
+          "title": titleC.text,
+          "description": descriptionC.text,
+          "nama_peminjam": namaC.text,
+          "tanggal_pinjam": tanggalC.text,
+          "tanggal_kembali": tanggalKemC.text,
+          "status": radio.value,
+          "keterangan": keteranganC.text,
+        });
       }
-    } else {
-      CustomToast.errorToast('Error', 'gambar tidak boleh kosong !!');
+
+      Get.back(); //close dialog
+      Get.back(); //close form screen
+      CustomToast.successToast('Success', 'Berhasil memperbarui data peminjaman');
+
+      isLoadingCreateTodo.value = false;
+    } on FirebaseAuthException catch (e) {
+      isLoadingCreateTodo.value = false;
+      CustomToast.errorToast('Error', 'error : ${e.code}');
+    } catch (e) {
+      isLoadingCreateTodo.value = false;
+      CustomToast.errorToast('Error', 'error : ${e.toString()}');
     }
+    // } else {
+    //   CustomToast.errorToast('Error', 'gambar tidak boleh kosong !!');
+    // }
   }
 }

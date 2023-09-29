@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -52,11 +43,38 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAy1wUkhhHtrwYfJMI8h_mp3TaMKRFRCmg',
+    appId: '1:973070492703:web:35b7917af2996e5da9212a',
+    messagingSenderId: '973070492703',
+    projectId: 'limapps-a48e8',
+    authDomain: 'limapps-a48e8.firebaseapp.com',
+    storageBucket: 'limapps-a48e8.appspot.com',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDopDe-vznC4SukEv0YiS4kJSw-OPbqzxE',
-    appId: '1:938616686346:android:0c5e52620c20a1e1019cf3',
-    messagingSenderId: '938616686346',
-    projectId: 'limsappsflutter',
-    storageBucket: 'limsappsflutter.appspot.com',
+    apiKey: 'AIzaSyCxalojQSqEq53dMfAENsfb74UK8ZuJG6E',
+    appId: '1:973070492703:android:ebdf5c5c6ed91b7da9212a',
+    messagingSenderId: '973070492703',
+    projectId: 'limapps-a48e8',
+    storageBucket: 'limapps-a48e8.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCooDFDufuUxW3gtG3iA82O6mrugbq27mY',
+    appId: '1:973070492703:ios:fda3ffcc726c4f15a9212a',
+    messagingSenderId: '973070492703',
+    projectId: 'limapps-a48e8',
+    storageBucket: 'limapps-a48e8.appspot.com',
+    iosBundleId: 'com.example.firebaseLims',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyCooDFDufuUxW3gtG3iA82O6mrugbq27mY',
+    appId: '1:973070492703:ios:3ae798e9050da9efa9212a',
+    messagingSenderId: '973070492703',
+    projectId: 'limapps-a48e8',
+    storageBucket: 'limapps-a48e8.appspot.com',
+    iosBundleId: 'com.example.firebaseLims.RunnerTests',
   );
 }

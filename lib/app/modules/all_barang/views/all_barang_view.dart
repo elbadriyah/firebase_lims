@@ -87,8 +87,17 @@ class AllTBarangView extends GetView<AllBarangController> {
                           padding: EdgeInsets.only(
                               left: 24, top: 20, right: 29, bottom: 20),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              Image.network(
+                                todoBarang["image"],
+                                width: 100,
+                                height: 100,
+                              ),
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

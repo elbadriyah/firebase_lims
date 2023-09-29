@@ -129,7 +129,7 @@ class AddTodoController extends GetxController {
 
         String fileName = file!.path.split('/').last;
         String ext = fileName.split(".").last;
-        String upDir = "${uuidTodo}.$ext";
+        String upDir = "image/${uuidTodo}.$ext";
 
         var snapshot =
             await firebaseStorage.ref().child('images/$upDir').putFile(file!);

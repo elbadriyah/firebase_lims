@@ -46,8 +46,12 @@ class RegisterView extends GetView<RegisterController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Image.asset(
+                  'assets/images/lims.png',
+                  width: 130,
+                ),
                 Text(
-                  "TODO App",
+                  "Lab Inventory Managemens System",
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -58,7 +62,7 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "by Hummasoft",
+                  "by Badriyah",
                   style: TextStyle(color: Colors.white),
                 ),
               ],

@@ -90,22 +90,36 @@ class EditBarangController extends GetxController {
       String uid = auth.currentUser!.uid;
       CollectionReference<Map<String, dynamic>> childrenCollection =
           await firestore.collection("items");
-      String fileName = file!.path.split('/').last;
-      String ext = fileName.split(".").last;
-      String upDir = "image/${argsData["id"]}.$ext";
+      DocumentReference todo =
+          await firestore.collection("items").doc(argsData["id"]);
+      if (file != null) {
+        String fileName = file!.path.split('/').last;
+        String ext = fileName.split(".").last;
+        String upDir = "image/${argsData["id"]}.$ext";
 
-      var snapshot =
-          await firebaseStorage.ref().child('images/$upDir').putFile(file!);
-      var downloadUrl = await snapshot.ref.getDownloadURL();
+        var snapshot =
+            await firebaseStorage.ref().child('images/$upDir').putFile(file!);
+        var downloadUrl = await snapshot.ref.getDownloadURL();
 
-      await childrenCollection.doc(argsData["id"]).update({
-        "nama_barang": namabrgC.text,
-        "spesifikasi": spfkC.text,
-        "merk": merkC,
-        "tahun_beli": thnbeliC,
-        "sumber_dana": sumberdanaC,
-        "jumlah": jumlahC,
-      });
+        await childrenCollection.doc(argsData["id"]).update({
+          "nama_barang": namabrgC.text,
+          "spesifikasi": spfkC.text,
+          "merk": merkC.text,
+          "tahun_beli": thnbeliC.text,
+          "sumber_dana": sumberdanaC.text,
+          "jumlah": jumlahC.text,
+          "image": downloadUrl,
+        });
+      } else {
+        await childrenCollection.doc(argsData["id"]).update({
+          "nama_barang": namabrgC.text,
+          "spesifikasi": spfkC.text,
+          "merk": merkC.text,
+          "tahun_beli": thnbeliC.text,
+          "sumber_dana": sumberdanaC.text,
+          "jumlah": jumlahC.text,
+        });
+      }
 
       Get.back(); //close dialog
       Get.back(); //close form screen

@@ -212,7 +212,8 @@ class HomeView extends GetView<HomeController> {
                                         Routes.DETAIL_TODO,
                                         arguments: {
                                           "id": "${todoData["task_id"]}",
-                                          "title": "${todoData["title"]}",
+                                          "title":
+                                              "${todoData["item"]["nama_barang"]}",
                                           "description":
                                               "${todoData["description"]}",
                                           "nama_peminjam":

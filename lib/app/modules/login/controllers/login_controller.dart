@@ -47,7 +47,7 @@ class LoginController extends GetxController {
           String uid = auth.currentUser!.uid;
           DocumentSnapshot<Map<String, dynamic>> query =
               await firestore.collection("users").doc(uid).get();
-          Get.offAllNamed(Routes.HOME);
+          Get.offAllNamed(Routes.DASHBOARD);
         }
         isLoading.value = false;
       } on FirebaseAuthException catch (e) {

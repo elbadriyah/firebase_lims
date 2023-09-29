@@ -80,9 +80,12 @@ class AddBarangController extends GetxController {
       String ext = fileName.split(".").last;
       String upDir = "${uuidItem}.$ext";
 
+      print("upload");
       var snapshot =
           await firebaseStorage.ref().child('images/$upDir').putFile(file!);
+      print(snapshot);
       var downloadUrl = await snapshot.ref.getDownloadURL();
+      print(downloadUrl);
 
       await childrenCollection.doc(uuidItem).set({
         "task_id": uuidItem,

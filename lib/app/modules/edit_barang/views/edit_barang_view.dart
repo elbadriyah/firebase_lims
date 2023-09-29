@@ -34,126 +34,128 @@ class EditTBarangView extends GetView<EditBarangController> {
           ),
         ),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
-        children: [
-          CustomInput(
-            controller: controller.namabrgC,
-            label: 'Nama Barang',
-            hint: 'Tambahkan nama Barang',
-          ),
-          CustomInput(
-            controller: controller.spfkC,
-            label: 'Spesifikasi Barang',
-            hint: 'Deskripsi barang',
-          ),
-          CustomInput(
-            controller: controller.merkC,
-            label: 'Merk Barang',
-            hint: 'Merk Barang',
-          ),
-          CustomInput(
-            controller: controller.thnbeliC,
-            label: 'Tahun beli',
-            hint: 'Tahun beli Barang',
-          ),
-          CustomInput(
-            controller: controller.sumberdanaC,
-            label: 'Sumber dana',
-            hint: 'Sumber dana pembelian barang',
-          ),
-          CustomInput(
-            controller: controller.jumlahC,
-            label: 'Jumlah barang',
-            hint: 'Jumlah barang',
-          ),
-          (controller.file != null)
-              ? Image.file(controller.file!)
-              : Image.network(controller.image),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => controller.toCamera(),
-                  child: Text(
-                    'Kamera',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'poppins',
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: AppColor.primary,
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => controller.pickFile(),
-                  child: Text(
-                    'Galeri',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'poppins',
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: AppColor.primary,
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 32),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            child: Obx(
-              () => ElevatedButton(
-                onPressed: () {
-                  if (controller.isLoading.isFalse) {
-                    controller.editBarang();
-                  }
-                },
-                child: Text(
-                  (controller.isLoading.isFalse)
-                      ? 'Edit data peminjaman'
-                      : 'Loading...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: AppColor.primary,
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-              ),
+      body: GetBuilder<EditBarangController>(builder: (controller) {
+        return ListView(
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.all(20),
+          children: [
+            CustomInput(
+              controller: controller.namabrgC,
+              label: 'Nama Barang',
+              hint: 'Tambahkan nama Barang',
             ),
-          )
-        ],
-      ),
+            CustomInput(
+              controller: controller.spfkC,
+              label: 'Spesifikasi Barang',
+              hint: 'Deskripsi barang',
+            ),
+            CustomInput(
+              controller: controller.merkC,
+              label: 'Merk Barang',
+              hint: 'Merk Barang',
+            ),
+            CustomInput(
+              controller: controller.thnbeliC,
+              label: 'Tahun beli',
+              hint: 'Tahun beli Barang',
+            ),
+            CustomInput(
+              controller: controller.sumberdanaC,
+              label: 'Sumber dana',
+              hint: 'Sumber dana pembelian barang',
+            ),
+            CustomInput(
+              controller: controller.jumlahC,
+              label: 'Jumlah barang',
+              hint: 'Jumlah barang',
+            ),
+            (controller.file != null)
+                ? Image.file(controller.file!)
+                : Image.network(controller.image),
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => controller.toCamera(),
+                    child: Text(
+                      'Kamera',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'poppins',
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: AppColor.primary,
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () => controller.pickFile(),
+                    child: Text(
+                      'Galeri',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'poppins',
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: AppColor.primary,
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 32),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              child: Obx(
+                () => ElevatedButton(
+                  onPressed: () {
+                    if (controller.isLoading.isFalse) {
+                      controller.editBarang();
+                    }
+                  },
+                  child: Text(
+                    (controller.isLoading.isFalse)
+                        ? 'Edit data barang'
+                        : 'Loading...',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'poppins',
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: AppColor.primary,
+                    padding: EdgeInsets.symmetric(vertical: 18),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        );
+      }),
     );
   }
 }

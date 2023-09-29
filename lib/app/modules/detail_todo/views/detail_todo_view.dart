@@ -49,75 +49,82 @@ class DetailTodoView extends GetView<DetailTodoController> {
           ),
         ),
       ),
-      body: ListView(
-        shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
-        children: [
-          // CustomInput(
-          //   controller: controller.titleC,
-          //   label: 'Nama barang',
-          //   hint: 'Nama Barang yang dipinjam',
-          // ),
-          CustomInput(
-            controller: controller.descriptionC,
-            label: 'Identitas',
-            hint: 'No KTP/NIP/NISN',
-          ),
-          CustomInput(
-            controller: controller.namaC,
-            label: 'Nama peminjam',
-            hint: 'Nama peminjam alat',
-          ),
-          CustomInput(
-            controller: controller.tanggalC,
-            disabled: true,
-            label: 'Tanggal pinjam',
-            hint: DateFormat('d-M-yyyy').format(DateTime.now()),
-          ),
-          CustomInput(
-            controller: controller.tanggalKemC,
-            disabled: true,
-            label: 'Tanggal kembali',
-            hint: DateFormat('d-M-yyyy')
-                .format(DateTime.now().add(Duration(days: 3))),
-          ),
-          CustomInput(
-            controller: controller.statusC,
-            label: 'Keterangan',
-            hint: 'Keterangan kondisi alat',
-          ),
-          CustomInput(
-            controller: controller.keteranganC,
-            label: 'Keterangan',
-            hint: 'Keterangan kondisi alat',
-          ),
-          Image.network(controller.image),
-          const SizedBox(
-            height: 16,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              controller.deleteTodo();
-            },
-            child: Text(
-              'Delete peminjaman',
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'poppins',
+      body: GetBuilder<DetailTodoController>(builder: (controller) {
+        return ListView(
+          shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.all(20),
+          children: [
+            CustomInput(
+              controller: controller.titleC,
+              label: 'Nama barang',
+              hint: 'Nama Barang yang dipinjam',
+              disabled: true,
+            ),
+            CustomInput(
+              controller: controller.descriptionC,
+              label: 'Identitas',
+              hint: 'No KTP/NIP/NISN',
+              disabled: true,
+            ),
+            CustomInput(
+              controller: controller.namaC,
+              label: 'Nama peminjam',
+              hint: 'Nama peminjam alat',
+              disabled: true,
+            ),
+            CustomInput(
+              controller: controller.tanggalC,
+              disabled: true,
+              label: 'Tanggal pinjam',
+              hint: DateFormat('d-M-yyyy').format(DateTime.now()),
+            ),
+            CustomInput(
+              controller: controller.tanggalKemC,
+              disabled: true,
+              label: 'Tanggal kembali',
+              hint: DateFormat('d-M-yyyy')
+                  .format(DateTime.now().add(Duration(days: 3))),
+            ),
+            CustomInput(
+              controller: controller.statusC,
+              label: 'Keterangan',
+              hint: 'Keterangan kondisi alat',
+              disabled: true,
+            ),
+            CustomInput(
+              controller: controller.keteranganC,
+              label: 'Keterangan',
+              hint: 'Keterangan kondisi alat',
+              disabled: true,
+            ),
+            Image.network(controller.image),
+            const SizedBox(
+              height: 16,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                controller.deleteTodo();
+              },
+              child: Text(
+                'Delete peminjaman',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'poppins',
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: AppColor.warning,
+                padding: EdgeInsets.symmetric(vertical: 18),
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
             ),
-            style: ElevatedButton.styleFrom(
-              primary: AppColor.warning,
-              padding: EdgeInsets.symmetric(vertical: 18),
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 }

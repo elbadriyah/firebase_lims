@@ -82,15 +82,24 @@ class AllTodoView extends GetView<AllTodoController> {
                           padding: EdgeInsets.only(
                               left: 24, top: 20, right: 29, bottom: 20),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              Image.network(
+                                todoData["image"],
+                                width: 100,
+                                height: 100,
+                              ),
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    (todoData["title"] == null)
+                                    (todoData["nama_peminjam"] == null)
                                         ? "-"
-                                        : "${todoData["title"]}",
+                                        : "${todoData["nama_peminjam"]}",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                   Text(

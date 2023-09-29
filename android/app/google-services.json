@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "938616686346",
-    "project_id": "limsappsflutter",
-    "storage_bucket": "limsappsflutter.appspot.com"
+    "project_number": "973070492703",
+    "project_id": "limapps-a48e8",
+    "storage_bucket": "limapps-a48e8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:938616686346:android:3437793ce7d61f7a019cf3",
+        "mobilesdk_app_id": "1:973070492703:android:ebdf5c5c6ed91b7da9212a",
         "android_client_info": {
           "package_name": "com.example.firebase_lims"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDopDe-vznC4SukEv0YiS4kJSw-OPbqzxE"
+          "current_key": "AIzaSyCxalojQSqEq53dMfAENsfb74UK8ZuJG6E"
         }
       ],
       "services": {

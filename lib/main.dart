@@ -27,8 +27,7 @@ Future<void> main() async {
       return GetMaterialApp(
         title: "Application",
         debugShowCheckedModeBanner: false,
-        initialRoute:
-            snapshot.data != null ? AppPages.INITIAL : Routes.DASHBOARD,
+        initialRoute: snapshot.data != null ? AppPages.INITIAL : Routes.LOGIN,
         getPages: AppPages.routes,
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,

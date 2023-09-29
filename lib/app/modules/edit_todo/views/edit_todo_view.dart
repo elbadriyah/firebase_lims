@@ -47,6 +47,7 @@ class EditTodoView extends GetView<EditTodoController> {
               controller: controller.titleC,
               label: 'Nama barang',
               hint: 'Nama Barang yang dipinjam',
+              disabled: true,
             ),
             CustomInput(
               controller: controller.descriptionC,

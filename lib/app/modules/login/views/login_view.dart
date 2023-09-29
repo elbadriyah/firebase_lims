@@ -37,18 +37,12 @@ class LoginView extends GetView<LoginController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  "LIMS",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    fontFamily: 'poppins',
-                    height: 150 / 100,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Image.asset(
+                  'assets/images/lims.png',
+                  width: 130,
                 ),
                 Text(
-                  "Lab Inventory Managemens System",
+                  "Lab Inventory Management System",
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,

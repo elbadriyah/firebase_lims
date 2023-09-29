@@ -15,7 +15,7 @@ class DetailTodoController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
 
-  //TextEditingController titleC = TextEditingController();
+  TextEditingController titleC = TextEditingController();
   TextEditingController descriptionC = TextEditingController();
   TextEditingController namaC = TextEditingController();
   TextEditingController tanggalC = TextEditingController();
@@ -32,7 +32,7 @@ class DetailTodoController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    //titleC.text = argsData["title"];
+    titleC.text = argsData["title"];
     descriptionC.text = argsData["description"];
     namaC.text = argsData["nama_peminjam"];
     tanggalC.text = argsData["tanggal_pinjam"];
@@ -69,12 +69,7 @@ class DetailTodoController extends GetxController {
           await firebaseStorage.refFromURL(image).delete();
 
           String uid = auth.currentUser!.uid;
-          await firestore
-              .collection('users')
-              .doc(uid)
-              .collection('todos')
-              .doc(argsData['id'])
-              .delete();
+          await firestore.collection('todos').doc(argsData['id']).delete();
           CustomToast.successToast(
               'Success', 'Data peminjaman berhasil dihapus');
         } catch (e) {
