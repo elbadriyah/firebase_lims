@@ -6,7 +6,7 @@ class AppColor {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
-  static const Color primary = Color.fromARGB(255, 37, 211, 246);
+  static const Color primary = Color.fromARGB(255, 23, 198, 233);
   static const Color primarySoft = Color.fromARGB(255, 9, 137, 223);
   static const Color primaryExtraSoft = Color(0xFFEFF3FC);
   static const Color secondary = Color(0xFF1B1F24);

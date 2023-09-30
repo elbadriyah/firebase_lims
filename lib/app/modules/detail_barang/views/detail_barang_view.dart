@@ -6,6 +6,7 @@ import 'package:flutter_crud_firebase/app/utils/app_color.dart';
 import 'package:flutter_crud_firebase/app/widgets/custom_input.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 class DetailBarangView extends GetView<DetailBarangController> {
   const DetailBarangView({Key? key}) : super(key: key);
@@ -87,6 +88,18 @@ class DetailBarangView extends GetView<DetailBarangController> {
             label: 'Jumlah barang',
             hint: 'Jumlah barang',
             disabled: true,
+          ),
+          Center(
+            child: SizedBox(
+              width: 200,
+              height: 200,
+              child: PrettyQrView.data(
+                data: controller.argsData["id"],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Image.network(controller.image),
           const SizedBox(

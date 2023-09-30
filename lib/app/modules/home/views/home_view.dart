@@ -4,9 +4,11 @@ import 'package:flutter_crud_firebase/app/modules/home/controllers/home_controll
 import 'package:flutter_crud_firebase/app/routes/app_pages.dart';
 import 'package:flutter_crud_firebase/app/utils/app_color.dart';
 import 'package:get/get.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -246,34 +248,48 @@ class HomeView extends GetView<HomeController> {
                                           bottom: 20),
                                       child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Image.network(
-                                            todoData["image"],
-                                            width: 100,
-                                            height: 100,
-                                          ),
-                                          SizedBox(
-                                            width: 24,
-                                            height: 24,
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                (todoData["nama_peminjam"] ==
-                                                        null)
-                                                    ? "-"
-                                                    : "${todoData["nama_peminjam"]}",
-                                                style: TextStyle(fontSize: 12),
+                                              Image.network(
+                                                todoData["image"],
+                                                width: 100,
+                                                height: 100,
                                               ),
-                                              Text(
-                                                "${todoData["created_at"]}",
-                                                style: TextStyle(fontSize: 12),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    (todoData["nama_peminjam"] ==
+                                                            null)
+                                                        ? "-"
+                                                        : "${todoData["nama_peminjam"]}",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                  Text(
+                                                    "${todoData["created_at"]}",
+                                                    style:
+                                                        TextStyle(fontSize: 12),
+                                                  ),
+                                                ],
                                               ),
                                             ],
                                           ),
+                                          SizedBox(
+                                            width: 40,
+                                            height: 40,
+                                            child: PrettyQrView.data(
+                                              data: "${todoData["task_id"]}",
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),

@@ -5,6 +5,7 @@ import 'package:flutter_crud_firebase/app/utils/app_color.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../controllers/all_todo_controller.dart';
 
@@ -63,8 +64,14 @@ class AllTodoView extends GetView<AllTodoController> {
                             Routes.DETAIL_TODO,
                             arguments: {
                               "id": "${todoData["task_id"]}",
-                              "nama_peminjam": "${todoData["nama_peminjam"]}",
+                              "title": "${todoData["item"]["nama_barang"]}",
                               "description": "${todoData["description"]}",
+                              "nama_peminjam": "${todoData["nama_peminjam"]}",
+                              "tanggal_pinjam": "${todoData["tanggal_pinjam"]}",
+                              "tanggal_kembali":
+                                  "${todoData["tanggal_kembali"]}",
+                              "status": "${todoData["status"]}",
+                              "keterangan": "${todoData["keterangan"]}",
                               "image": "${todoData["image"]}",
                             },
                           )
@@ -82,34 +89,45 @@ class AllTodoView extends GetView<AllTodoController> {
                           padding: EdgeInsets.only(
                               left: 24, top: 20, right: 29, bottom: 20),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Image.network(
-                                todoData["image"],
-                                width: 100,
-                                height: 100,
-                              ),
-                              SizedBox(
-                                width: 24,
-                                height: 24,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    (todoData["nama_peminjam"] == null)
-                                        ? "-"
-                                        : "${todoData["nama_peminjam"]}",
-                                    style: TextStyle(fontSize: 12),
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Image.network(
+                                      todoData["image"],
+                                      width: 100,
+                                      height: 100,
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          (todoData["nama_peminjam"] == null)
+                                              ? "-"
+                                              : "${todoData["nama_peminjam"]}",
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                        Text(
+                                          "${todoData["created_at"]}",
+                                          style: TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: PrettyQrView.data(
+                                    data: "${todoData["task_id"]}",
                                   ),
-                                  Text(
-                                    "${todoData["created_at"]}",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                )
+                              ]),
                         ),
                       );
                     },
@@ -121,6 +139,13 @@ class AllTodoView extends GetView<AllTodoController> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            controller.downloadtodos();
+          },
+          child: Icon(
+            Icons.print,
+          )),
     );
   }
 }

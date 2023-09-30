@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../utils/app_color.dart';
@@ -97,6 +98,23 @@ class DetailTodoView extends GetView<DetailTodoController> {
               label: 'Keterangan',
               hint: 'Keterangan kondisi alat',
               disabled: true,
+            ),
+            Center(
+              child: SizedBox(
+                width: 200,
+                height: 200,
+                child: PrettyQrView.data(
+                  data: 'lorem ipsum dolor sit amet',
+                  decoration: const PrettyQrDecoration(
+                    image: PrettyQrDecorationImage(
+                      image: AssetImage('images/flutter.png'),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Image.network(controller.image),
             const SizedBox(
